@@ -12,10 +12,7 @@
  */
 package com.netflix.conductor.core.events;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -25,6 +22,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.retry.RetryContext;
+import org.springframework.retry.backoff.NoBackOffPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -32,11 +33,9 @@ import com.netflix.conductor.common.metadata.events.EventExecution;
 import com.netflix.conductor.common.metadata.events.EventExecution.Status;
 import com.netflix.conductor.common.metadata.events.EventHandler;
 import com.netflix.conductor.common.metadata.events.EventHandler.Action;
-import com.netflix.conductor.common.utils.RetryUtil;
 import com.netflix.conductor.core.config.ConductorProperties;
 import com.netflix.conductor.core.events.queue.Message;
 import com.netflix.conductor.core.events.queue.ObservableQueue;
-import com.netflix.conductor.core.exception.ApplicationException;
 import com.netflix.conductor.core.execution.evaluators.Evaluator;
 import com.netflix.conductor.core.utils.JsonUtils;
 import com.netflix.conductor.metrics.Monitors;
@@ -46,6 +45,8 @@ import com.netflix.conductor.service.MetadataService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.spotify.futures.CompletableFutures;
+
+import static com.netflix.conductor.core.utils.Utils.isTransientException;
 
 /**
  * Event Processor is used to dispatch actions configured in the event handlers, based on incoming
@@ -72,6 +73,7 @@ public class DefaultEventProcessor {
     private final JsonUtils jsonUtils;
     private final boolean isEventMessageIndexingEnabled;
     private final Map<String, Evaluator> evaluators;
+    private final RetryTemplate retryTemplate = createRetryTemplate();
 
     public DefaultEventProcessor(
             ExecutionService executionService,
@@ -254,30 +256,21 @@ public class DefaultEventProcessor {
      */
     protected EventExecution execute(EventExecution eventExecution, Action action, Object payload) {
         try {
-            String methodName = "executeEventAction";
-            String description =
-                    String.format(
-                            "Executing action: %s for event: %s with messageId: %s with payload: %s",
-                            action.getAction(),
-                            eventExecution.getId(),
-                            eventExecution.getMessageId(),
-                            payload);
-            LOGGER.debug(description);
+            LOGGER.debug(
+                    "Executing action: {} for event: {} with messageId: {} with payload: {}",
+                    action.getAction(),
+                    eventExecution.getId(),
+                    eventExecution.getMessageId(),
+                    payload);
 
             Map<String, Object> output =
-                    new RetryUtil<Map<String, Object>>()
-                            .retryOnException(
-                                    () ->
-                                            actionProcessor.execute(
-                                                    action,
-                                                    payload,
-                                                    eventExecution.getEvent(),
-                                                    eventExecution.getMessageId()),
-                                    this::isTransientException,
-                                    null,
-                                    RETRY_COUNT,
-                                    description,
-                                    methodName);
+                    retryTemplate.execute(
+                            context ->
+                                    actionProcessor.execute(
+                                            action,
+                                            payload,
+                                            eventExecution.getEvent(),
+                                            eventExecution.getMessageId()));
             if (output != null) {
                 eventExecution.getOutput().putAll(output);
             }
@@ -293,7 +286,7 @@ public class DefaultEventProcessor {
                     eventExecution.getEvent(),
                     eventExecution.getMessageId(),
                     e);
-            if (!isTransientException(e.getCause())) {
+            if (!isTransientException(e)) {
                 // not a transient error, fail the event execution
                 eventExecution.setStatus(Status.FAILED);
                 eventExecution.getOutput().put("exception", e.getMessage());
@@ -307,24 +300,6 @@ public class DefaultEventProcessor {
         return eventExecution;
     }
 
-    /**
-     * Used to determine if the exception is thrown due to a transient failure and the operation is
-     * expected to succeed upon retrying.
-     *
-     * @param throwableException the exception that is thrown
-     * @return true - if the exception is a transient failure false - if the exception is
-     *     non-transient
-     */
-    protected boolean isTransientException(Throwable throwableException) {
-        if (throwableException != null) {
-            return !((throwableException instanceof UnsupportedOperationException)
-                    || (throwableException instanceof ApplicationException
-                            && ((ApplicationException) throwableException).getCode()
-                                    != ApplicationException.Code.BACKEND_ERROR));
-        }
-        return true;
-    }
-
     private Object getPayloadObject(String payload) {
         Object payloadObject = null;
         if (payload != null) {
@@ -335,5 +310,27 @@ public class DefaultEventProcessor {
             }
         }
         return payloadObject;
+    }
+
+    private RetryTemplate createRetryTemplate() {
+        SimpleRetryPolicy retryPolicy = new CustomRetryPolicy();
+        retryPolicy.setMaxAttempts(RETRY_COUNT);
+
+        RetryTemplate retryTemplate = new RetryTemplate();
+        retryTemplate.setRetryPolicy(retryPolicy);
+        retryTemplate.setBackOffPolicy(new NoBackOffPolicy());
+        return retryTemplate;
+    }
+
+    public static class CustomRetryPolicy extends SimpleRetryPolicy {
+
+        @Override
+        public boolean canRetry(final RetryContext context) {
+            final Optional<Throwable> lastThrowable =
+                    Optional.ofNullable(context.getLastThrowable());
+            return lastThrowable
+                    .map(throwable -> super.canRetry(context) && isTransientException(throwable))
+                    .orElseGet(() -> super.canRetry(context));
+        }
     }
 }

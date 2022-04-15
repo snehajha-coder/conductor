@@ -329,12 +329,6 @@
                 "com.netflix.conductor:conductor-core"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.android:annotations": {
             "locked": "4.1.1.4",
             "transitive": [
@@ -350,7 +344,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.google.protobuf:protobuf-java-util",
                 "io.grpc:grpc-api",
@@ -386,7 +379,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.conductor:conductor-core",
                 "io.grpc:grpc-api",
@@ -1371,12 +1363,6 @@
                 "com.netflix.conductor:conductor-core"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.android:annotations": {
             "locked": "4.1.1.4",
             "transitive": [
@@ -1392,7 +1378,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.google.protobuf:protobuf-java-util",
                 "io.grpc:grpc-api",
@@ -1434,7 +1419,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.conductor:conductor-core",
                 "io.grpc:grpc-api",

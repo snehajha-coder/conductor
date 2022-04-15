@@ -316,16 +316,9 @@
                 "org.redisson:redisson"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava"
             ]
         },
@@ -344,7 +337,6 @@
         "com.google.guava:guava": {
             "locked": "30.0-jre",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.netflix.conductor:conductor-core"
             ]
         },
@@ -1190,16 +1182,9 @@
         "com.github.kstyrc:embedded-redis": {
             "locked": "0.6"
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava"
             ]
         },
@@ -1219,7 +1204,6 @@
             "locked": "30.0-jre",
             "transitive": [
                 "com.github.kstyrc:embedded-redis",
-                "com.github.rholder:guava-retrying",
                 "com.netflix.conductor:conductor-core"
             ]
         },

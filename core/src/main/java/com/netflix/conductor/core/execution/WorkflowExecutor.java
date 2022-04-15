@@ -28,7 +28,6 @@ import com.netflix.conductor.common.metadata.workflow.SkipTaskRequest;
 import com.netflix.conductor.common.metadata.workflow.WorkflowDef;
 import com.netflix.conductor.common.metadata.workflow.WorkflowTask;
 import com.netflix.conductor.common.run.Workflow;
-import com.netflix.conductor.common.utils.RetryUtil;
 import com.netflix.conductor.common.utils.TaskUtils;
 import com.netflix.conductor.core.WorkflowContext;
 import com.netflix.conductor.core.config.ConductorProperties;
@@ -1160,33 +1159,15 @@ public class WorkflowExecutor {
             case IN_PROGRESS:
             case SCHEDULED:
                 try {
-                    String postponeTaskMessageDesc =
-                            "Postponing Task message in queue for taskId: " + task.getTaskId();
-                    String postponeTaskMessageOperation = "postponeTaskMessage";
-
-                    new RetryUtil<>()
-                            .retryOnException(
-                                    () -> {
-                                        // postpone based on callbackAfterSeconds
-                                        long callBack = taskResult.getCallbackAfterSeconds();
-                                        queueDAO.postpone(
-                                                taskQueueName,
-                                                task.getTaskId(),
-                                                task.getWorkflowPriority(),
-                                                callBack);
-                                        LOGGER.debug(
-                                                "Task: {} postponed in taskQueue: {} since the task status is {} with callbackAfterSeconds: {}",
-                                                task,
-                                                taskQueueName,
-                                                task.getStatus().name(),
-                                                callBack);
-                                        return null;
-                                    },
-                                    null,
-                                    null,
-                                    2,
-                                    postponeTaskMessageDesc,
-                                    postponeTaskMessageOperation);
+                    long callBack = taskResult.getCallbackAfterSeconds();
+                    queueDAO.postpone(
+                            taskQueueName, task.getTaskId(), task.getWorkflowPriority(), callBack);
+                    LOGGER.debug(
+                            "Task: {} postponed in taskQueue: {} since the task status is {} with callbackAfterSeconds: {}",
+                            task,
+                            taskQueueName,
+                            task.getStatus().name(),
+                            callBack);
                 } catch (Exception e) {
                     // Throw exceptions on queue postpone, this would impact task execution
                     String errorMsg =
@@ -1205,20 +1186,7 @@ public class WorkflowExecutor {
 
         // Throw an ApplicationException if below operations fail to avoid workflow inconsistencies.
         try {
-            String updateTaskDesc = "Updating Task with taskId: " + task.getTaskId();
-            String updateTaskOperation = "updateTask";
-
-            new RetryUtil<>()
-                    .retryOnException(
-                            () -> {
-                                executionDAOFacade.updateTask(task);
-                                return null;
-                            },
-                            null,
-                            null,
-                            2,
-                            updateTaskDesc,
-                            updateTaskOperation);
+            executionDAOFacade.updateTask(task);
         } catch (Exception e) {
             String errorMsg =
                     String.format(

@@ -19,29 +19,27 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.retry.RetryContext;
+import org.springframework.retry.backoff.NoBackOffPolicy;
+import org.springframework.retry.policy.SimpleRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 
-import com.netflix.conductor.common.utils.RetryUtil;
 import com.netflix.conductor.core.exception.ApplicationException;
-import com.netflix.conductor.mysql.util.ExecuteFunction;
-import com.netflix.conductor.mysql.util.LazyToString;
-import com.netflix.conductor.mysql.util.Query;
-import com.netflix.conductor.mysql.util.QueryFunction;
-import com.netflix.conductor.mysql.util.TransactionalFunction;
+import com.netflix.conductor.mysql.util.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 
-import static com.netflix.conductor.core.exception.ApplicationException.Code.BACKEND_ERROR;
-import static com.netflix.conductor.core.exception.ApplicationException.Code.CONFLICT;
-import static com.netflix.conductor.core.exception.ApplicationException.Code.INTERNAL_ERROR;
+import static com.netflix.conductor.core.exception.ApplicationException.Code.*;
 
 import static com.mysql.cj.exceptions.MysqlErrorNumbers.ER_LOCK_DEADLOCK;
 import static java.lang.Integer.parseInt;
@@ -59,6 +57,8 @@ public abstract class MySQLBaseDAO {
     protected final Logger logger = LoggerFactory.getLogger(getClass());
     protected final ObjectMapper objectMapper;
     protected final DataSource dataSource;
+
+    private final RetryTemplate retryTemplate = createRetryTemplate();
 
     protected MySQLBaseDAO(ObjectMapper om, DataSource dataSource) {
         this.objectMapper = om;
@@ -155,16 +155,9 @@ public abstract class MySQLBaseDAO {
 
     <R> R getWithRetriedTransactions(final TransactionalFunction<R> function) {
         try {
-            return new RetryUtil<R>()
-                    .retryOnException(
-                            () -> getWithTransaction(function),
-                            this::isDeadLockError,
-                            null,
-                            MAX_RETRY_ON_DEADLOCK,
-                            "retry on deadlock",
-                            "transactional");
-        } catch (RuntimeException e) {
-            throw (ApplicationException) e.getCause();
+            return retryTemplate.execute(context -> getWithTransaction(function));
+        } catch (Exception e) {
+            throw (ApplicationException) e;
         }
     }
 
@@ -273,22 +266,6 @@ public abstract class MySQLBaseDAO {
         withTransaction(tx -> execute(tx, query, function));
     }
 
-    private boolean isDeadLockError(Throwable throwable) {
-        SQLException sqlException = findCauseSQLException(throwable);
-        if (sqlException == null) {
-            return false;
-        }
-        return ER_LOCK_DEADLOCK == sqlException.getErrorCode();
-    }
-
-    private SQLException findCauseSQLException(Throwable throwable) {
-        Throwable causeException = throwable;
-        while (null != causeException && !(causeException instanceof SQLException)) {
-            causeException = causeException.getCause();
-        }
-        return (SQLException) causeException;
-    }
-
     private static int getMaxRetriesOnDeadLock() {
         try {
             return parseInt(
@@ -297,6 +274,44 @@ public abstract class MySQLBaseDAO {
                             MAX_RETRY_ON_DEADLOCK_PROPERTY_DEFAULT_VALUE));
         } catch (Exception e) {
             return parseInt(MAX_RETRY_ON_DEADLOCK_PROPERTY_DEFAULT_VALUE);
+        }
+    }
+
+    private RetryTemplate createRetryTemplate() {
+        SimpleRetryPolicy retryPolicy = new CustomRetryPolicy();
+        retryPolicy.setMaxAttempts(MAX_RETRY_ON_DEADLOCK);
+
+        RetryTemplate retryTemplate = new RetryTemplate();
+        retryTemplate.setRetryPolicy(retryPolicy);
+        retryTemplate.setBackOffPolicy(new NoBackOffPolicy());
+        return retryTemplate;
+    }
+
+    public static class CustomRetryPolicy extends SimpleRetryPolicy {
+
+        @Override
+        public boolean canRetry(final RetryContext context) {
+            final Optional<Throwable> lastThrowable =
+                    Optional.ofNullable(context.getLastThrowable());
+            return lastThrowable
+                    .map(throwable -> super.canRetry(context) && isDeadLockError(throwable))
+                    .orElseGet(() -> super.canRetry(context));
+        }
+
+        private boolean isDeadLockError(Throwable throwable) {
+            SQLException sqlException = findCauseSQLException(throwable);
+            if (sqlException == null) {
+                return false;
+            }
+            return ER_LOCK_DEADLOCK == sqlException.getErrorCode();
+        }
+
+        private SQLException findCauseSQLException(Throwable throwable) {
+            Throwable causeException = throwable;
+            while (null != causeException && !(causeException instanceof SQLException)) {
+                causeException = causeException.getCause();
+            }
+            return (SQLException) causeException;
         }
     }
 }

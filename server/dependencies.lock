@@ -212,6 +212,12 @@
                 "org.springframework.boot:spring-boot-starter-tomcat"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.glassfish:jakarta.el": {
             "locked": "3.0.3",
             "transitive": [
@@ -303,6 +309,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-es7-persistence",
                 "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-validation",
                 "org.springframework.boot:spring-boot-starter-web"
@@ -310,6 +317,12 @@
         },
         "org.springframework.boot:spring-boot-starter-actuator": {
             "locked": "2.3.12.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
         },
         "org.springframework.boot:spring-boot-starter-json": {
             "locked": "2.3.12.RELEASE",
@@ -338,9 +351,16 @@
         "org.springframework.boot:spring-boot-starter-web": {
             "locked": "2.3.12.RELEASE"
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context",
                 "org.springframework:spring-webmvc"
             ]
@@ -366,6 +386,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -637,12 +658,6 @@
                 "org.apache.kafka:kafka-clients"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.spullara.mustache.java:compiler": {
             "locked": "0.9.3",
             "transitive": [
@@ -670,7 +685,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -712,7 +726,6 @@
             "locked": "31.0.1-android",
             "transitive": [
                 "com.datastax.cassandra:cassandra-driver-core",
-                "com.github.rholder:guava-retrying",
                 "com.google.inject:guice",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -1784,6 +1797,12 @@
                 "org.springframework.boot:spring-boot-starter-tomcat"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.checkerframework:checker-compat-qual": {
             "locked": "2.5.5",
             "transitive": [
@@ -2175,6 +2194,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-es7-persistence",
                 "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework.boot:spring-boot-starter-jdbc",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-validation",
@@ -2183,6 +2203,12 @@
         },
         "org.springframework.boot:spring-boot-starter-actuator": {
             "locked": "2.3.12.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
         },
         "org.springframework.boot:spring-boot-starter-jdbc": {
             "locked": "2.3.12.RELEASE",
@@ -2222,9 +2248,16 @@
                 "com.netflix.conductor:conductor-rest"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context",
                 "org.springframework:spring-webmvc"
             ]
@@ -2252,6 +2285,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -2571,12 +2605,6 @@
                 "org.apache.kafka:kafka-clients"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.spullara.mustache.java:compiler": {
             "locked": "0.9.3",
             "transitive": [
@@ -2604,7 +2632,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -2646,7 +2673,6 @@
             "locked": "31.0.1-android",
             "transitive": [
                 "com.datastax.cassandra:cassandra-driver-core",
-                "com.github.rholder:guava-retrying",
                 "com.google.inject:guice",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -3718,6 +3744,12 @@
                 "org.springframework.boot:spring-boot-starter-tomcat"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.checkerframework:checker-compat-qual": {
             "locked": "2.5.5",
             "transitive": [
@@ -4109,6 +4141,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-es7-persistence",
                 "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework.boot:spring-boot-starter-jdbc",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-validation",
@@ -4117,6 +4150,12 @@
         },
         "org.springframework.boot:spring-boot-starter-actuator": {
             "locked": "2.3.12.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
         },
         "org.springframework.boot:spring-boot-starter-jdbc": {
             "locked": "2.3.12.RELEASE",
@@ -4156,9 +4195,16 @@
                 "com.netflix.conductor:conductor-rest"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context",
                 "org.springframework:spring-webmvc"
             ]
@@ -4186,6 +4232,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -4647,6 +4694,12 @@
                 "org.junit.vintage:junit-vintage-engine"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.assertj:assertj-core": {
             "locked": "3.16.1",
             "transitive": [
@@ -4860,6 +4913,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-es7-persistence",
                 "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-test",
                 "org.springframework.boot:spring-boot-starter-validation",
@@ -4868,6 +4922,12 @@
         },
         "org.springframework.boot:spring-boot-starter-actuator": {
             "locked": "2.3.12.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
         },
         "org.springframework.boot:spring-boot-starter-json": {
             "locked": "2.3.12.RELEASE",
@@ -4912,9 +4972,16 @@
                 "org.springframework.boot:spring-boot-starter-test"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context",
                 "org.springframework:spring-webmvc"
             ]
@@ -4941,6 +5008,7 @@
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-starter-test",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -5225,12 +5293,6 @@
                 "org.apache.kafka:kafka-clients"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.spullara.mustache.java:compiler": {
             "locked": "0.9.3",
             "transitive": [
@@ -5258,7 +5320,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -5300,7 +5361,6 @@
             "locked": "31.0.1-android",
             "transitive": [
                 "com.datastax.cassandra:cassandra-driver-core",
-                "com.github.rholder:guava-retrying",
                 "com.google.inject:guice",
                 "com.google.protobuf:protobuf-java-util",
                 "com.netflix.archaius:archaius-core",
@@ -6411,6 +6471,12 @@
                 "org.junit.vintage:junit-vintage-engine"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.assertj:assertj-core": {
             "locked": "3.16.1",
             "transitive": [
@@ -6915,6 +6981,7 @@
             "transitive": [
                 "com.netflix.conductor:conductor-es7-persistence",
                 "org.springframework.boot:spring-boot-starter-actuator",
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework.boot:spring-boot-starter-jdbc",
                 "org.springframework.boot:spring-boot-starter-json",
                 "org.springframework.boot:spring-boot-starter-test",
@@ -6924,6 +6991,12 @@
         },
         "org.springframework.boot:spring-boot-starter-actuator": {
             "locked": "2.3.12.RELEASE"
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
         },
         "org.springframework.boot:spring-boot-starter-jdbc": {
             "locked": "2.3.12.RELEASE",
@@ -6979,9 +7052,16 @@
                 "org.springframework.boot:spring-boot-starter-test"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE",
+            "transitive": [
+                "com.netflix.conductor:conductor-es7-persistence"
+            ]
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context",
                 "org.springframework:spring-webmvc"
             ]
@@ -7010,6 +7090,7 @@
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-starter-test",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",

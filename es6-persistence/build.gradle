@@ -16,6 +16,8 @@ dependencies {
     implementation project(':conductor-core')
 
     compileOnly 'org.springframework.boot:spring-boot-starter'
+    compileOnly "org.springframework.retry:spring-retry"
+    compileOnly 'org.springframework.boot:spring-boot-starter-aop'
 
     implementation "commons-io:commons-io:${revCommonsIo}"
     implementation "org.apache.commons:commons-lang3"

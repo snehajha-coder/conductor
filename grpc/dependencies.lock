@@ -152,12 +152,6 @@
                 "com.netflix.conductor:conductor-common"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.api.grpc:proto-google-common-protos": {
             "locked": "2.0.1",
             "transitive": [
@@ -167,7 +161,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
@@ -191,7 +184,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
                 "io.grpc:grpc-protobuf-lite",
@@ -358,12 +350,6 @@
                 "com.netflix.conductor:conductor-common"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.api.grpc:proto-google-common-protos": {
             "locked": "2.0.1",
             "transitive": [
@@ -373,7 +359,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
@@ -397,7 +382,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
                 "io.grpc:grpc-protobuf-lite",
@@ -976,12 +960,6 @@
                 "com.netflix.conductor:conductor-common"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.api.grpc:proto-google-common-protos": {
             "locked": "2.0.1",
             "transitive": [
@@ -991,7 +969,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
@@ -1015,7 +992,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
                 "io.grpc:grpc-protobuf-lite",
@@ -1473,12 +1449,6 @@
                 "com.netflix.conductor:conductor-common"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.google.api.grpc:proto-google-common-protos": {
             "locked": "2.0.1",
             "transitive": [
@@ -1488,7 +1458,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
@@ -1512,7 +1481,6 @@
         "com.google.guava:guava": {
             "locked": "31.0.1-android",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "io.grpc:grpc-api",
                 "io.grpc:grpc-protobuf",
                 "io.grpc:grpc-protobuf-lite",

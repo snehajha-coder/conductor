@@ -38,6 +38,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.retry.annotation.EnableRetry;
 
 import com.netflix.conductor.dao.IndexDAO;
 import com.netflix.conductor.es6.dao.index.ElasticSearchDAOV6;
@@ -46,6 +47,7 @@ import com.netflix.conductor.es6.dao.index.ElasticSearchRestDAOV6;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration(proxyBeanMethods = false)
+@EnableRetry
 @EnableConfigurationProperties(ElasticSearchProperties.class)
 @Conditional(ElasticSearchConditions.ElasticSearchV6Enabled.class)
 public class ElasticSearchV6Configuration {

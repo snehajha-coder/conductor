@@ -15,6 +15,8 @@ dependencies {
     implementation project(':conductor-common')
     implementation project(':conductor-core')
     compileOnly 'org.springframework.boot:spring-boot-starter'
+    compileOnly "org.springframework.retry:spring-retry"
+    compileOnly 'org.springframework.boot:spring-boot-starter-aop'
 
     // SBMTODO: remove guava dep
     implementation "com.google.guava:guava:${revGuava}"

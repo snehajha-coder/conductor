@@ -265,6 +265,12 @@
                 "org.elasticsearch:elasticsearch"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.checkerframework:checker-qual": {
             "locked": "3.5.0",
             "transitive": [
@@ -387,6 +393,12 @@
             ]
         },
         "org.springframework.boot:spring-boot-starter": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
             "locked": "2.3.12.RELEASE"
         },
         "org.springframework.boot:spring-boot-starter-logging": {
@@ -395,9 +407,13 @@
                 "org.springframework.boot:spring-boot-starter"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE"
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context"
             ]
         },
@@ -419,6 +435,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -493,12 +510,6 @@
                 "org.elasticsearch:elasticsearch-x-content"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.spullara.mustache.java:compiler": {
             "locked": "0.9.6",
             "transitive": [
@@ -508,7 +519,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava"
             ]
         },
@@ -527,7 +537,6 @@
         "com.google.guava:guava": {
             "locked": "30.0-jre",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.netflix.conductor:conductor-core"
             ]
         },
@@ -942,6 +951,12 @@
                 "org.springframework.boot:spring-boot-starter"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.slf4j:jul-to-slf4j": {
             "locked": "1.7.30",
             "transitive": [
@@ -968,6 +983,12 @@
             ]
         },
         "org.springframework.boot:spring-boot-starter": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
             "locked": "2.3.12.RELEASE"
         },
         "org.springframework.boot:spring-boot-starter-logging": {
@@ -976,9 +997,13 @@
                 "org.springframework.boot:spring-boot-starter"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE"
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context"
             ]
         },
@@ -1000,6 +1025,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -1760,6 +1786,12 @@
                 "org.springframework.boot:spring-boot-starter"
             ]
         },
+        "org.aspectj:aspectjweaver": {
+            "locked": "1.9.6",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
         "org.slf4j:jul-to-slf4j": {
             "locked": "1.7.30",
             "transitive": [
@@ -1786,6 +1818,12 @@
             ]
         },
         "org.springframework.boot:spring-boot-starter": {
+            "locked": "2.3.12.RELEASE",
+            "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop"
+            ]
+        },
+        "org.springframework.boot:spring-boot-starter-aop": {
             "locked": "2.3.12.RELEASE"
         },
         "org.springframework.boot:spring-boot-starter-logging": {
@@ -1794,9 +1832,13 @@
                 "org.springframework.boot:spring-boot-starter"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE"
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
+                "org.springframework.boot:spring-boot-starter-aop",
                 "org.springframework:spring-context"
             ]
         },
@@ -1818,6 +1860,7 @@
             "transitive": [
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -1910,12 +1953,6 @@
                 "org.testcontainers:testcontainers"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.spullara.mustache.java:compiler": {
             "locked": "0.9.6",
             "transitive": [
@@ -1925,7 +1962,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava"
             ]
         },
@@ -1944,7 +1980,6 @@
         "com.google.guava:guava": {
             "locked": "30.0-jre",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.netflix.conductor:conductor-core"
             ]
         },

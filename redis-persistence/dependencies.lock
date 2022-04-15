@@ -455,12 +455,6 @@
                 "com.github.vlsi.compactmap:compactmap"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.vlsi.compactmap:compactmap": {
             "locked": "1.2.1",
             "transitive": [
@@ -470,7 +464,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.netflix.archaius:archaius-core",
                 "com.netflix.netflix-commons:netflix-infix"
@@ -499,7 +492,6 @@
         "com.google.guava:guava": {
             "locked": "30.0-jre",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.inject:guice",
                 "com.netflix.archaius:archaius-core",
                 "com.netflix.conductor:conductor-core",
@@ -1654,12 +1646,6 @@
                 "com.github.vlsi.compactmap:compactmap"
             ]
         },
-        "com.github.rholder:guava-retrying": {
-            "locked": "2.0.0",
-            "transitive": [
-                "com.netflix.conductor:conductor-common"
-            ]
-        },
         "com.github.vlsi.compactmap:compactmap": {
             "locked": "1.2.1",
             "transitive": [
@@ -1669,7 +1655,6 @@
         "com.google.code.findbugs:jsr305": {
             "locked": "3.0.2",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.guava:guava",
                 "com.netflix.archaius:archaius-core",
                 "com.netflix.netflix-commons:netflix-infix"
@@ -1698,7 +1683,6 @@
         "com.google.guava:guava": {
             "locked": "30.0-jre",
             "transitive": [
-                "com.github.rholder:guava-retrying",
                 "com.google.inject:guice",
                 "com.netflix.archaius:archaius-core",
                 "com.netflix.conductor:conductor-core",

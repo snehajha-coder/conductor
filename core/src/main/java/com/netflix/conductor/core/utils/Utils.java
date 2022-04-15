@@ -14,11 +14,7 @@ package com.netflix.conductor.core.utils;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -124,5 +120,23 @@ public class Utils {
         } catch (NullPointerException exception) {
             throw new ApplicationException(ApplicationException.Code.INVALID_INPUT, errorMessage);
         }
+    }
+
+    /**
+     * Used to determine if the exception is thrown due to a transient failure and the operation is
+     * expected to succeed upon retrying.
+     *
+     * @param throwable the exception that is thrown
+     * @return true - if the exception is a transient failure
+     *     <p>false - if the exception is non-transient
+     */
+    public static boolean isTransientException(Throwable throwable) {
+        if (throwable != null) {
+            return !((throwable instanceof UnsupportedOperationException)
+                    || (throwable instanceof ApplicationException
+                            && ((ApplicationException) throwable).getCode()
+                                    != ApplicationException.Code.BACKEND_ERROR));
+        }
+        return true;
     }
 }
