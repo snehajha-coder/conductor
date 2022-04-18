@@ -56,8 +56,6 @@ import org.elasticsearch.search.sort.FieldSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.retry.backoff.FixedBackOffPolicy;
-import org.springframework.retry.policy.SimpleRetryPolicy;
 import org.springframework.retry.support.RetryTemplate;
 
 import com.netflix.conductor.annotations.Trace;
@@ -85,7 +83,6 @@ public class ElasticSearchRestDAOV6 extends ElasticSearchBaseDAO implements Inde
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchRestDAOV6.class);
 
-    private static final int RETRY_COUNT = 3;
     private static final int CORE_POOL_SIZE = 6;
     private static final long KEEP_ALIVE_TIME = 1L;
 
@@ -129,7 +126,7 @@ public class ElasticSearchRestDAOV6 extends ElasticSearchBaseDAO implements Inde
     private final long asyncBufferFlushTimeout;
     private final ElasticSearchProperties properties;
 
-    private final RetryTemplate retryTemplate = createRetryTemplate();
+    private final RetryTemplate retryTemplate;
 
     static {
         SIMPLE_DATE_FORMAT.setTimeZone(GMT);
@@ -137,6 +134,7 @@ public class ElasticSearchRestDAOV6 extends ElasticSearchBaseDAO implements Inde
 
     public ElasticSearchRestDAOV6(
             RestClientBuilder restClientBuilder,
+            RetryTemplate retryTemplate,
             ElasticSearchProperties properties,
             ObjectMapper objectMapper) {
 
@@ -203,6 +201,7 @@ public class ElasticSearchRestDAOV6 extends ElasticSearchBaseDAO implements Inde
 
         Executors.newSingleThreadScheduledExecutor()
                 .scheduleAtFixedRate(this::flushBulkRequests, 60, 30, TimeUnit.SECONDS);
+        this.retryTemplate = retryTemplate;
     }
 
     @PreDestroy
@@ -1065,20 +1064,6 @@ public class ElasticSearchRestDAOV6 extends ElasticSearchBaseDAO implements Inde
                                     entry.getValue().getBulkRequest().numberOfActions());
                             indexBulkRequest(entry.getKey());
                         });
-    }
-
-    private RetryTemplate createRetryTemplate() {
-        RetryTemplate retryTemplate = new RetryTemplate();
-
-        FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
-        fixedBackOffPolicy.setBackOffPeriod(1000L);
-        retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
-
-        SimpleRetryPolicy retryPolicy = new SimpleRetryPolicy();
-        retryPolicy.setMaxAttempts(3);
-        retryTemplate.setRetryPolicy(retryPolicy);
-
-        return retryTemplate;
     }
 
     private static class BulkRequests {

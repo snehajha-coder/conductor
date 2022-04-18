@@ -1706,6 +1706,9 @@
                 "org.springframework.boot:spring-boot-starter-test"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE"
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
@@ -1731,6 +1734,7 @@
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-starter-test",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",
@@ -2632,6 +2636,9 @@
                 "org.springframework.boot:spring-boot-starter-test"
             ]
         },
+        "org.springframework.retry:spring-retry": {
+            "locked": "1.2.5.RELEASE"
+        },
         "org.springframework:spring-aop": {
             "locked": "5.2.15.RELEASE",
             "transitive": [
@@ -2657,6 +2664,7 @@
                 "org.springframework.boot:spring-boot",
                 "org.springframework.boot:spring-boot-starter",
                 "org.springframework.boot:spring-boot-starter-test",
+                "org.springframework.retry:spring-retry",
                 "org.springframework:spring-aop",
                 "org.springframework:spring-beans",
                 "org.springframework:spring-context",

@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.retry.annotation.EnableRetry;
 
 import com.netflix.conductor.common.metadata.tasks.TaskType;
 import com.netflix.conductor.common.utils.ExternalPayloadStorage;
@@ -48,7 +47,6 @@ import static com.netflix.conductor.core.execution.tasks.SystemTaskRegistry.ASYN
 import static java.util.function.Function.identity;
 
 @Configuration(proxyBeanMethods = false)
-@EnableRetry
 @EnableConfigurationProperties(ConductorProperties.class)
 public class ConductorCoreConfiguration {
 
